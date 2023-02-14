@@ -1,4 +1,4 @@
-import not_found_page from '../../defImages/not_found_page.jpg'
+import not_found_page from '../../defaultImg/not_found_page.jpg'
 
 export const NotFound = () => {
     return (

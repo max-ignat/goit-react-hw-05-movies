@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMovieDetails } from "../../services/api";
 import MovieCard from "../../modules/MovieCard";
@@ -8,7 +8,7 @@ const SingleMoviePage = () => {
 
     const [movie, setMovie] = useState({});
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchMovieInfo() {
       if (!id) {
@@ -40,6 +40,7 @@ const SingleMoviePage = () => {
     
     return (
       <>
+        <button onClick={()=> navigate(-1)}>Go back</button>
         <MovieCard
           name={movie.name}
           title={movie.title}
