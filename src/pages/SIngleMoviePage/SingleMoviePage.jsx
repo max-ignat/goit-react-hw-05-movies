@@ -1,7 +1,8 @@
-import { useParams , useNavigate } from "react-router-dom";
+import { useParams , useNavigate ,Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMovieDetails } from "../../services/api";
 import MovieCard from "../../modules/MovieCard";
+
 // import { getMovieDetails } from "services/api";
 
 const SingleMoviePage = () => {
@@ -40,7 +41,7 @@ const SingleMoviePage = () => {
     
     return (
       <>
-        <button onClick={()=> navigate(-1)}>Go back</button>
+        <button onClick={() => navigate(-1)}>Go back</button>
         <MovieCard
           name={movie.name}
           title={movie.title}
@@ -52,6 +53,14 @@ const SingleMoviePage = () => {
           genres={movie.genres}
           original_title={movie.original_title}
         />
+        
+          <Link to="cast">
+            <p>Cast</p>
+          </Link>
+          <Link to="reviews">
+            <p>Reviews</p>
+          </Link>
+        <Outlet/>
       </>
     );
 };

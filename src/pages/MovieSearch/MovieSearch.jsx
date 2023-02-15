@@ -1,6 +1,6 @@
 import Searchbar from "../../modules/Searchbar/Searchbar"
 import { useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect,  } from "react";
 import Notiflix from "notiflix";
 import { searchMovies } from "../../services/api";
 import { Link } from "react-router-dom";
@@ -33,15 +33,15 @@ useEffect(() => {
     try {
     //   setLoading(true);
       const response = await searchMovies(query);
-
+      
       setMovies(response);
-      // setTotallPages(response.totalHits / per_page);
-console.log(response)
+      // setTotallPages(response.length / per_page);
+// console.log(response)
       if (response.length === 0) {
         return Notiflix.Notify.failure("Nothing found");
         // console.log(' nothing found');
       }
-      console.log("QUERY =>", query);
+      // console.log("QUERY =>", query);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -62,9 +62,12 @@ const handleFormSubmit = (query) => {
    const loadMore = e => {
      console.log('load more');
      setSearchParams({query, page: Number(page) + 1 });
-    // setMovies(movies => [...movies, ...movies]);
-   };
 
+   };
+//   const loadMore = useCallback(() => {
+   
+//   setSearchParams({ query , page: Number(page) + 1 });
+// }, [query]);
 
 
 
