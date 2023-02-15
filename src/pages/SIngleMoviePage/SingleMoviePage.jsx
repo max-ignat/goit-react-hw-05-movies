@@ -1,4 +1,4 @@
-import { useParams , useNavigate ,Link, Outlet } from "react-router-dom";
+import { useParams , useNavigate ,Link, Outlet ,useLocation} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMovieDetails } from "../../services/api";
 import MovieCard from "../../modules/MovieCard";
@@ -10,6 +10,9 @@ const SingleMoviePage = () => {
     const [movie, setMovie] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
+
   useEffect(() => {
     async function fetchMovieInfo() {
       if (!id) {
@@ -41,7 +44,7 @@ const SingleMoviePage = () => {
     
     return (
       <>
-        <button onClick={() => navigate(-1)}>Go back</button>
+        <button onClick={() => navigate(from)}>Go back</button>
         <MovieCard
           name={movie.name}
           title={movie.title}
@@ -53,14 +56,14 @@ const SingleMoviePage = () => {
           genres={movie.genres}
           original_title={movie.original_title}
         />
-        
-          <Link to="cast">
-            <p>Cast</p>
-          </Link>
-          <Link to="reviews">
-            <p>Reviews</p>
-          </Link>
-        <Outlet/>
+
+        <Link to="cast" state={{ from }}>
+          <p>Cast</p>
+        </Link>
+        <Link to="reviews" state={{ from }}>
+          <p>Reviews</p>
+        </Link>
+        <Outlet context={id} />
       </>
     );
 };

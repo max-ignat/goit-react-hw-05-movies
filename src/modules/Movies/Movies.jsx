@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { getTrending } from "../../services/api";
 // import MovieCard from "../MovieCard";
-import { Link } from "react-router-dom";
+import { Link , useLocation} from "react-router-dom";
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
-
+  const location = useLocation();
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -36,7 +36,7 @@ const Movies = () => {
               backdrop_path,
               genres,
             }) => (
-              <Link key={id} to={`/movies/${id}`}>
+              <Link key={id} to={`/movies/${id}`} state={{ from: location }}>
                 <li>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${poster_path}`}

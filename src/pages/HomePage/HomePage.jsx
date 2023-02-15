@@ -1,6 +1,6 @@
 import Movies from "../../modules/Movies/Movies"
 
-export const HomePage = () => {
+ const HomePage = () => {
     return (
         <>
          <h1>Tranding Films</h1>
@@ -8,3 +8,4 @@ export const HomePage = () => {
         </>
     )
 }
+export default HomePage;

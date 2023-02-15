@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useState, useEffect,  } from "react";
 import Notiflix from "notiflix";
 import { searchMovies } from "../../services/api";
-import { Link } from "react-router-dom";
+import { Link ,useLocation} from "react-router-dom";
 import defaultImg from '../../defaultImg/defaultImg.jpg'
 const IMG_PATH = 'https://image.tmdb.org/t/p/w500/'
 
@@ -11,7 +11,7 @@ const IMG_PATH = 'https://image.tmdb.org/t/p/w500/'
 const MovieSearch = () => {
      
 const [movies, setMovies] = useState([]);
-
+const location = useLocation()
 // const [query, setQuery] = useState("");
 // const [loading, setLoading] = useState(false);
 const [, setError] = useState(null);
@@ -73,7 +73,6 @@ const handleFormSubmit = (query) => {
 
     return (
       <>
-        
         <Searchbar submitPropValue={handleFormSubmit} />
 
         {movies && (
@@ -92,10 +91,18 @@ const handleFormSubmit = (query) => {
                   backdrop_path,
                   // genres,
                 }) => (
-                  <Link key={id} to={`/movies/${id}`}>
+                  <Link
+                    key={id}
+                    to={`/movies/${id}`}
+                    state={{ from: location }}
+                  >
                     <li>
                       <img
-                        src={(poster_path || backdrop_path ? IMG_PATH + (poster_path ?? backdrop_path) : defaultImg)}
+                        src={
+                          poster_path || backdrop_path
+                            ? IMG_PATH + (poster_path ?? backdrop_path)
+                            : defaultImg
+                        }
                         alt={name}
                       />
                       <p>{name || original_title}</p>
@@ -106,7 +113,7 @@ const handleFormSubmit = (query) => {
           </ul>
         )}
 
-        {movies.length > 0 && (<button onClick={loadMore}>Load more</button>)}
+        {movies.length > 0 && <button onClick={loadMore}>Load more</button>}
       </>
     );
 }
