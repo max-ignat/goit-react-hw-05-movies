@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+
+
 export const CardWrap = styled.div`
   display: flex;
   margin-top: 35px;
@@ -19,6 +21,7 @@ export const FilmPoster = styled.img`
   height: 400px;
   margin-left: 35px;
   box-shadow: rgb(0 0 0 / 70%) 5px 5px 13px 0px;
+  
 `;
 
 export const Title = styled.p`

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getTrending } from "../../services/api";
-// import MovieCard from "../MovieCard";
-import { Link , useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
+import {CardWrap, FilmPoster,  MovieItem, MovieList, PosterTitle,Title} from './Movies.styled'
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const location = useLocation();
@@ -11,7 +11,7 @@ const Movies = () => {
       try {
         const response = await getTrending();
         setMovies(response);
-        // console.log("response", response);
+        console.log("response", response);
       } catch (response) {
         console.log("error", response.data.message);
       }
@@ -21,45 +21,30 @@ const Movies = () => {
 
   return (
     <>
-      <ul>
+      <Title>Trending movies</Title>
+      <MovieList>
         {movies &&
           movies.map(
-            ({
-              name,
-              original_title,
-              id,
-              title,
-              release_date,
-              overview,
-              vote_average,
-              poster_path,
-              backdrop_path,
-              genres,
-            }) => (
-              <Link key={id} to={`/movies/${id}`} state={{ from: location }}>
-                <li>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                    alt={name}
-                  />
-                  <p>{name || original_title}</p>
+            ({ name, original_title, id, poster_path, release_date }) => (
+              <CardWrap>
+                <Link key={id} to={`/movies/${id}`} state={{ from: location }}>
+                  <MovieItem>
+                    <FilmPoster
+                      src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                      alt={name}
+                    />
 
-                  {/* <MovieCard
-                    name={name}
-                    title={title}
-                    release_date={release_date}
-                    overview={overview}
-                    vote_average={vote_average}
-                    poster_path={poster_path}
-                    backdrop_path={backdrop_path}
-                    genres={genres}
-                    original_title={original_title}
-                  /> */}
-                </li>
-              </Link>
+                    <PosterTitle>
+                      {name || original_title} {}
+                      {/* {release_date && release_date.slice(0, 4)} */}
+                    </PosterTitle>
+
+                  </MovieItem>
+                </Link>
+              </CardWrap>
             )
           )}
-      </ul>
+      </MovieList>
     </>
   );
 };

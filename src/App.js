@@ -1,6 +1,7 @@
 
 import { lazy, Suspense} from 'react';
 import Navbar from './modules/Navbar';
+import { Wraper } from 'App.styled';
 // import  HomePage  from './pages/HomePage/HomePage';
 // import MovieSearch from './pages/MovieSearch/MovieSearch';
 import { Route, Routes } from 'react-router-dom';
@@ -15,12 +16,15 @@ const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 const Cast = lazy(() => import('modules/Cast'));
 const Reviews = lazy(() => import('modules/Reviews'));
 const SingleMoviePage = lazy(() => import('./pages/SIngleMoviePage/SingleMoviePage'));
-
+// const Searchbar = lazy(() =>
+//   import('./modules/Searchbar/Searchbar')
+// );
 function App() {
   return (
-    <div className="App">
+    <Wraper>
       <Navbar />
-      <Suspense fallback={ <p> wait a sec...</p> }>
+      {/* <Searchbar /> */}
+      <Suspense fallback={<p> wait a sec...</p>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies/:id" element={<SingleMoviePage />}>
@@ -32,7 +36,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </div>
+    </Wraper>
   );
 }
 

@@ -5,6 +5,7 @@ import Notiflix from "notiflix";
 import { searchMovies } from "../../services/api";
 import { Link ,useLocation} from "react-router-dom";
 import defaultImg from '../../defaultImg/defaultImg.jpg'
+import { FilmPoster, MovieItem, PosterTitle, MovieList } from 'modules/Movies/Movies.styled';
 const IMG_PATH = 'https://image.tmdb.org/t/p/w500/'
 
 
@@ -76,28 +77,23 @@ const handleFormSubmit = (query) => {
         <Searchbar submitPropValue={handleFormSubmit} />
 
         {movies && (
-          <ul>
+          <MovieList>
             {movies &&
               movies.map(
                 ({
                   name,
                   original_title,
                   id,
-                  // title,
-                  // release_date,
-                  // overview,
-                  // vote_average,
                   poster_path,
-                  backdrop_path,
-                  // genres,
+                  backdrop_path,                  
                 }) => (
                   <Link
                     key={id}
                     to={`/movies/${id}`}
                     state={{ from: location }}
                   >
-                    <li>
-                      <img
+                    <MovieItem>
+                      <FilmPoster
                         src={
                           poster_path || backdrop_path
                             ? IMG_PATH + (poster_path ?? backdrop_path)
@@ -105,12 +101,12 @@ const handleFormSubmit = (query) => {
                         }
                         alt={name}
                       />
-                      <p>{name || original_title}</p>
-                    </li>
+                      <PosterTitle>{name || original_title}</PosterTitle>
+                    </MovieItem>
                   </Link>
                 )
               )}
-          </ul>
+          </MovieList>
         )}
 
         {movies.length > 0 && <button onClick={loadMore}>Load more</button>}

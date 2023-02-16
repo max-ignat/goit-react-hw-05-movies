@@ -1,4 +1,5 @@
 import items from "modules/items";
+import { SearchbarHeader } from "modules/Searchbar/Searchbar.styled";
 // import { NavItem, NavList, Ref } from "./Navbar.styled";
 import { NavItem, NavList, Ref } from "./Navbar.styled";
 
